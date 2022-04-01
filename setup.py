@@ -17,21 +17,17 @@ setup(
     long_description_content_type='text/markdown',
     author='Sebastian Wallat',
     author_email='wallatsebastian@gmail.com',
-    url='https://github.com/',
-    download_url='https://github.com/SebastianWallat/SolarWattEnergyManagerAPI/archive/v_053.tar.gz',
-    keywords=['IOT', 'Solar', 'Local'],
+    url='https://github.com/AlgorithmicEntropy/LedFxApiPython',
+    download_url='https://github.com/SebastianWallat/SolarWattEnergyManagerAPI/archive/v_001.tar.gz',
+    keywords=['FX', 'LedFx', 'Local', 'API'],
     install_requires=[
-        'requests',
+        'requests', 'urllib3'
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Build Tools',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.10',
     ],
 )

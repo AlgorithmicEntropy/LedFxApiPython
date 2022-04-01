@@ -18,7 +18,7 @@ setup(
     author='Sebastian Wallat',
     author_email='wallatsebastian@gmail.com',
     url='https://github.com/AlgorithmicEntropy/LedFxApiPython',
-    download_url='https://github.com/SebastianWallat/SolarWattEnergyManagerAPI/archive/v_001.tar.gz',
+    download_url='https://github.com/AlgorithmicEntropy/LedFxApiPython/releases/tag/v0.0.1z',
     keywords=['FX', 'LedFx', 'Local', 'API'],
     install_requires=[
         'requests', 'urllib3'

@@ -1,7 +1,14 @@
+import logging
 import urllib.parse as url_parser
 
 import requests
 import json
+
+_LOGGER = logging.getLogger(__name__)
+
+
+class ApiError(BaseException):
+    pass
 
 
 class RESTClient:
@@ -13,17 +20,19 @@ class RESTClient:
 
         self.base_url = url_parser.urljoin(self.base_url, url_base)
 
-    def handle_exception(self, e, response):
+    @staticmethod
+    def handle_exception(e, response):
         if isinstance(e, requests.ConnectionError):
-            raise SystemExit(e)
+            _LOGGER.error("Cant connect to LedFx Instance")
         if isinstance(e, requests.HTTPError):
             # Handle http errors
-            print(response.text)
-            raise SystemExit(e)
+            _LOGGER.error(response.text)
         if isinstance(e, requests.Timeout):
-            raise SystemExit(e)
+            _LOGGER.error("Timeout while connecting to LedFx Instance")
         if isinstance(e, requests.TooManyRedirects):
-            raise SystemExit(e)
+            _LOGGER.error("To many redirects while connecting to LedFx Instance")
+
+        raise ApiError from e
 
     def handle_http_error(self, e):
         pass

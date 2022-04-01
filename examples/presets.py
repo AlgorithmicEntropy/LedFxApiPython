@@ -1,4 +1,4 @@
-import api
+from LedFxAPI import api
 
 my_api = api.API('192.168.178.27', '8888')
 

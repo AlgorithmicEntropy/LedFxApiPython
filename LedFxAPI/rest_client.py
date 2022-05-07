@@ -1,7 +1,8 @@
 import logging
 import urllib.parse as url_parser
 
-import requests
+import asyncio
+import aiohttp
 import json
 
 _LOGGER = logging.getLogger(__name__)
@@ -20,6 +21,7 @@ class RESTClient:
 
         self.base_url = url_parser.urljoin(self.base_url, url_base)
 
+    """
     @staticmethod
     def handle_exception(e, response):
         if isinstance(e, requests.ConnectionError):
@@ -33,76 +35,74 @@ class RESTClient:
             _LOGGER.error("To many redirects while connecting to LedFx Instance")
 
         raise ApiError from e
+    """
 
     def handle_http_error(self, e):
         pass
 
-    def get(self, path, data=None, headers=None):
+    async def get(self, path, data=None, headers=None):
         """
         :param path: url path
         :param data: dict like obj
         :param headers: request headers
-        :return: json as dict
+        :return: json response as dict obj
         """
         url = url_parser.urljoin(self.base_url, path)
-        response = None
-        try:
-            response = requests.request('GET', url, headers=headers, data=json.dumps(data))
-            response.raise_for_status()
-            return response.json()
-        except requests.exceptions.RequestException as e:
-            self.handle_exception(e, response)
+        async with aiohttp.ClientSession() as session:
+            try:
+                async with session.get(url, headers=headers, data=json.dumps(data)) as resp:
+                    return await resp.json()
+            except Exception as e:
+                # self.handle_exception(e, response)
+                pass
 
-    def post(self, path, data=None, headers=None):
+    async def post(self, path, data=None, headers=None):
         """
         :param path: url path
         :param data: dict like obj
         :param headers: request headers
         :returns:
-            - json - json as dict
-            - status - status code
+            - json response as dict obj
         """
         url = url_parser.urljoin(self.base_url, path)
-        response = None
-        try:
-            response = requests.request('POST', url, headers=headers, data=json.dumps(data))
-            response.raise_for_status()
-            return response.json(), response.status_code
-        except requests.exceptions.RequestException as e:
-            self.handle_exception(e, response)
+        async with aiohttp.ClientSession() as session:
+            try:
+                async with session.post(url, headers=headers, data=json.dumps(data)) as resp:
+                    return await resp.json()
+            except Exception as e:
+                # self.handle_exception(e, response)
+                pass
 
-    def put(self, path, data=None, headers=None):
+    async def put(self, path, data=None, headers=None):
         """
         :param path: url path
         :param data: dict like obj
         :param headers: request headers
         :returns:
-            - json - json as dict
-            - status - status code
+            - json response as dict obj
         """
         url = url_parser.urljoin(self.base_url, path)
-        response = None
-        try:
-            response = requests.request('PUT', url, headers=headers, data=json.dumps(data))
-            response.raise_for_status()
-            return response.json(), response.status_code
-        except requests.exceptions.RequestException as e:
-            self.handle_exception(e, response)
+        async with aiohttp.ClientSession() as session:
+            try:
+                async with session.put(url, headers=headers, data=json.dumps(data)) as resp:
+                    return await resp.json()
+            except Exception as e:
+                # self.handle_exception(e, response)
+                pass
 
-    def delete(self, path, data=None, headers=None):
+    async def delete(self, path, data=None, headers=None):
         """
         :param path: url path
         :param data: dict like obj
         :param headers: request headers
         :returns:
-            - json - json as dict
-            - status - status code
+            - json response as dict obj
         """
         url = url_parser.urljoin(self.base_url, path)
-        response = None
-        try:
-            response = requests.request('DEL', url, headers=headers, data=json.dumps(data))
-            response.raise_for_status()
-            return response.json(), response.status_code
-        except requests.exceptions.RequestException as e:
-            self.handle_exception(e, response)
+        async with aiohttp.ClientSession() as session:
+            try:
+                async with session.delete(url, headers=headers, data=json.dumps(data)) as resp:
+                    return await resp.json()
+            except Exception as e:
+                # self.handle_exception(e, response)
+                pass

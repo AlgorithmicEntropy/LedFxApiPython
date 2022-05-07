@@ -1,29 +1,38 @@
-from LedFxAPI import api
+"""Basic example showcasing how to set effects"""
+import asyncio
 
-my_api = api.API('192.168.178.27', '8888')
+from LedFxAPI import *
 
-effects = my_api.effects_get_current()
-print(effects)
 
-ids = my_api.devices_all_ids()
-print(ids)
-my_device = ids[0]
-effects = my_api.device_get_effect(my_device)
+async def main():
+    ledfx = LedFx('192.168.178.27', '8888')  # new api object
+    await ledfx.helper.load_helpers()  # init helpers, e.g build preset table
 
-effects = effects['effect']
+    virtuals = await ledfx.helper.get_all_virtuals()  # get all virtuals defined in ledfx
+    effects = await ledfx.helper.get_all_effect_ids()  # get all possible effects
 
-effect_name = effects['name']
-effect_type = effects['type']
+    for i in range(len(virtuals)):
+        print(f"{i} {virtuals[i]}")
+    my_virt_idx = input("Select virtual to control: ")
+    my_virt = virtuals[int(my_virt_idx)]
 
-presets = my_api.device_get_presets(my_device)
+    for i in range(len(effects)):
+        print(f"{i} {effects[i]}")
+    my_effect_idx = input("Select effect: ")
+    my_effect = effects[int(my_effect_idx)]
 
-default_presets = list(presets['default_presets'].keys())
+    presets = await ledfx.helper.get_all_presets_for_effect(my_effect)
 
-preset_obj = {
-    'category': 'default_presets',
-    'effect_id': effect_type,
-    'preset_id': default_presets[3]
-}
+    for i in range(len(presets)):
+        print(f"{i} {presets[i]}")
+    my_preset_idx = input("Select preset, empty for default: ")
+    if not my_preset_idx:
+        my_preset = 'reset'
+    else:
+        my_preset = presets[int(my_preset_idx)]
 
-response = my_api.device_set_preset(my_device, preset_obj)
-print(response)
+    await ledfx.helper.set_preset(my_virt, my_effect, my_preset)
+
+
+if __name__ == '__main__':
+    asyncio.run(main())

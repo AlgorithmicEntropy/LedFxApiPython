@@ -12,14 +12,14 @@ setup(
     packages=['LedFxAPI'],
     version='0.0.1',
     license='MIT',
-    description='RawAPI wrapper for LedFx RawAPI',
+    description='Python API for LedFx',
     long_description=long_description,
     long_description_content_type='text/markdown',
     author='Sebastian Wallat',
     author_email='wallatsebastian@gmail.com',
     url='https://github.com/AlgorithmicEntropy/LedFxApiPython',
     download_url='https://github.com/AlgorithmicEntropy/LedFxApiPython/releases/tag/v0.0.1.tar.gz',
-    keywords=['FX', 'LedFx', 'Local', 'RawAPI'],
+    keywords=['FX', 'LedFx', 'Local', 'API'],
     install_requires=[
         'requests', 'urllib3'
     ],

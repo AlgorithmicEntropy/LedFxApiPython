@@ -10,7 +10,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
     name='LedFxAPI',
     packages=['LedFxAPI'],
-    version='0.0.1',
+    version='0.0.2',
     license='MIT',
     description='Python API for LedFx',
     long_description=long_description,
@@ -18,7 +18,7 @@ setup(
     author='Sebastian Wallat',
     author_email='wallatsebastian@gmail.com',
     url='https://github.com/AlgorithmicEntropy/LedFxApiPython',
-    download_url='https://github.com/AlgorithmicEntropy/LedFxApiPython/releases/tag/v0.0.1.tar.gz',
+    download_url='https://github.com/AlgorithmicEntropy/LedFxApiPython/releases/tag/v0.0.2.tar.gz',
     keywords=['FX', 'LedFx', 'Local', 'API'],
     install_requires=[
         'requests', 'urllib3'

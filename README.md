@@ -3,12 +3,14 @@ A python3 library to control LedFx
 
 This library provides a python wrapper for the LedFx REST API
 
-Status: WIP
+__Status:__ WIP / Alpha
+
+__Note:__ Some funcationality is only compatible with the beta branch of ledfx (future release)
 
 ## Installation
 
 ```
-TODO
+pip install LedFxApi
 ```
 
 ## Usage
